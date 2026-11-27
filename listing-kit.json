@@ -1,0 +1,30 @@
+{
+  "product": {
+    "name": "Quanta1810 Web Audit & Lazada Tools",
+    "registry_name": "io.github.QuanTa1810/quanta1810-mcp",
+    "github_repo": "https://github.com/QuanTa1810/quanta1810-mcp",
+    "url": "https://apify.com/quanta1810",
+    "mcp_url": "https://mcp.apify.com/?tools=quanta1810/website-health-audit,quanta1810/bulk-pagespeed,quanta1810/bulk-redirect-checker,quanta1810/lazada-scraper,quanta1810/dmarc-spf-checker,quanta1810/ssl-certificate-checker,quanta1810/website-contact-finder",
+    "transport": "streamable-http",
+    "auth": "OAuth (Apify sign-in) or Authorization: Bearer <user's own Apify API token>",
+    "license": "MIT (listing repo); tools run on Apify",
+    "version": "1.0.0"
+  },
+  "copy": {
+    "tagline_40": "Bulk website checks and Lazada data, MCP",
+    "summary_100": "Bulk website health, PageSpeed, redirect, SSL and DMARC/SPF checks, email finder, Lazada scraper.",
+    "awesome_list_line": "- [Quanta1810 Web Audit & Lazada Tools](https://github.com/QuanTa1810/quanta1810-mcp) - Remote MCP server (via Apify) for bulk website health, PageSpeed, redirect, SSL and DMARC/SPF checks, an email finder and a Lazada scraper.",
+    "remote_list_sentence_120": "Bulk website health, PageSpeed, redirect, SSL and DMARC/SPF checks, a contact email finder and a Lazada scraper."
+  },
+  "taxonomy": {
+    "primary_category": "Developer tools / SEO & website monitoring",
+    "secondary_categories": ["Web scraping", "E-commerce data", "Email deliverability"],
+    "tags": ["seo", "website-audit", "pagespeed", "lighthouse", "core-web-vitals", "redirects", "ssl", "dmarc", "spf", "email-finder", "lazada", "apify", "remote-mcp"]
+  },
+  "pricing": {
+    "model": "pay per result (pay-per-event on Apify)",
+    "starting_price": "$0.0005 per domain or URL",
+    "billed_by": "Apify, to the user's own Apify account",
+    "checked_on": "2026-11-27"
+  }
+}

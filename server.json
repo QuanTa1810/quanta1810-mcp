@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.QuanTa1810/quanta1810-mcp",
+  "title": "Quanta1810 Web Audit & Lazada Tools",
+  "description": "Bulk website health, PageSpeed, redirect, SSL and DMARC/SPF checks, email finder, Lazada scraper.",
+  "version": "1.0.0",
+  "websiteUrl": "https://apify.com/quanta1810",
+  "repository": {
+    "url": "https://github.com/QuanTa1810/quanta1810-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.apify.com/?tools=quanta1810/website-health-audit,quanta1810/bulk-pagespeed,quanta1810/bulk-redirect-checker,quanta1810/lazada-scraper,quanta1810/dmarc-spf-checker,quanta1810/ssl-certificate-checker,quanta1810/website-contact-finder",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Your own Apify API token as 'Bearer <apify-api-token>'. Leave empty if your client signs in with Apify OAuth.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
