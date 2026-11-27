@@ -1,0 +1,112 @@
+{
+  "name": "Weekly PageSpeed & Core Web Vitals report to Google Sheets (Apify)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [1],
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "a1f0c6d2-1b7e-4c1a-9a51-0f6f4b1c0001",
+      "name": "Every Monday 07:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b2c1d3e4-0000-4000-8000-000000000001",
+              "name": "urls",
+              "value": "={{ [\"https://example.com/\", \"https://example.com/pricing\"] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1f0c6d2-1b7e-4c1a-9a51-0f6f4b1c0002",
+      "name": "URLs to check (edit me)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/quanta1810~bulk-pagespeed/run-sync-get-dataset-items",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ urls: $json.urls, strategies: [\"mobile\", \"desktop\"] }) }}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "id": "a1f0c6d2-1b7e-4c1a-9a51-0f6f4b1c0003",
+      "name": "Run Bulk PageSpeed on Apify",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0],
+      "notes": "Credential: Header Auth, name = Authorization, value = Bearer <your Apify API token>. Billed to your Apify account: $0.002 per URL per device. Up to ~5 minutes per call; for long lists use the Apify runs API instead."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "c1", "name": "checkedAt", "value": "={{ $now.toISODate() }}", "type": "string" },
+            { "id": "c2", "name": "url", "value": "={{ $json.url }}", "type": "string" },
+            { "id": "c3", "name": "mobilePerformance", "value": "={{ $json.mobilePerformance }}", "type": "number" },
+            { "id": "c4", "name": "desktopPerformance", "value": "={{ $json.desktopPerformance }}", "type": "number" },
+            { "id": "c5", "name": "mobileCwvPassed", "value": "={{ $json.mobileCwvPassed }}", "type": "string" },
+            { "id": "c6", "name": "mobileLcpMs", "value": "={{ $json.mobileLcpMs }}", "type": "number" },
+            { "id": "c7", "name": "mobileInpMs", "value": "={{ $json.mobileInpMs }}", "type": "number" },
+            { "id": "c8", "name": "mobileCls", "value": "={{ $json.mobileCls }}", "type": "number" },
+            { "id": "c9", "name": "summary", "value": "={{ $json.summary }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1f0c6d2-1b7e-4c1a-9a51-0f6f4b1c0004",
+      "name": "Pick columns",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "url", "value": "" },
+        "sheetName": { "__rl": true, "mode": "name", "value": "PageSpeed" },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {}
+        },
+        "options": {}
+      },
+      "id": "a1f0c6d2-1b7e-4c1a-9a51-0f6f4b1c0005",
+      "name": "Append to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [880, 0],
+      "notes": "Paste your spreadsheet URL and create a sheet tab named PageSpeed with the column headers from the previous node."
+    }
+  ],
+  "connections": {
+    "Every Monday 07:00": { "main": [[{ "node": "URLs to check (edit me)", "type": "main", "index": 0 }]] },
+    "URLs to check (edit me)": { "main": [[{ "node": "Run Bulk PageSpeed on Apify", "type": "main", "index": 0 }]] },
+    "Run Bulk PageSpeed on Apify": { "main": [[{ "node": "Pick columns", "type": "main", "index": 0 }]] },
+    "Pick columns": { "main": [[{ "node": "Append to Google Sheets", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

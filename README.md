@@ -101,6 +101,10 @@ You can set a maximum cost per run on Apify to cap spending.
 - **Contact finder:** "Find the public contact e-mail and LinkedIn page for each of these company websites: …"
 - **Lazada:** "Get the top 40 results for 'air fryer' on Lazada Vietnam and Thailand, with price, discount and sold count, then show the ten with the most sold."
 
+## Without MCP: n8n workflow
+
+[`examples/n8n-weekly-pagespeed-to-google-sheets.json`](examples/n8n-weekly-pagespeed-to-google-sheets.json) runs Bulk PageSpeed every Monday and appends one row per URL to Google Sheets: mobile and desktop performance score, real-user LCP, INP, CLS and the Core Web Vitals verdict. Import it in n8n (Workflows → Import from file), add a Header Auth credential (`Authorization: Bearer <your Apify API token>`), edit the URL list and paste your sheet URL. It costs $0.002 per URL per device on your Apify account.
+
 ## Notes
 
 - **Unofficial.** Bulk PageSpeed uses Google's public PageSpeed Insights API; it is not affiliated with or endorsed by Google. The Lazada scraper is not affiliated with or endorsed by Lazada. This project is not made by Apify.
